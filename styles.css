@@ -1,0 +1,28 @@
+/* General page style */
+body{
+    background-color: #ffe1ee;
+    font-family: "Bookmam Old Style", sans-serif;
+    font-size: 20px;
+    color: #fff;
+}
+
+header h1 {
+    font-family: "Lavishly Yours", cursive;
+    color: #ae83d1;
+    text-align: center;
+    font-size: 200px;
+    margin-top: 70px;
+    margin-bottom: 0;
+}
+
+.tagline {
+    font-family: "Meie Script", cursive;
+    color: #ae83d1;
+    text-align: center;
+    font-size: 45px;
+    margin-top: 0;
+}
+
+html{
+    scrollbar-color: #ffa7b8 #ffe1ee;
+}
