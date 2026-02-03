@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Meie+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="static/favicon.png">
     <!-- Link to CSS file -->
@@ -18,14 +19,139 @@
 <body>
     <div id="app">
         <header>
-            <div class="header">
+            <nav class="navbar">
+                <div class="nav-logo">
+                    <a
+                    href="#"
+                    @click.prevent="currentPage = 'home';
+                    aboutSection = 'overview';">
+                        <img src="static/favicon.png" alt="uncloud favicon">
+                    </a>
+                </div>
+                <ul>
+                    <li><a
+                        href="#"
+                        @click.prevent="currentPage = 'home'"
+                        :class="{active: currentPage === 'home'}">
+                            Home
+                    </a></li>
+                    <li><a
+                        href="#"
+                        @click.prevent="currentPage = 'analyse'"
+                        :class="{active: currentPage === 'analyse'}">
+                            Analyse
+                        </a></li>
+                    <li><a
+                        href="#"
+                        @click.prevent="currentPage = 'about'; aboutSection = 'overview';"
+                        :class="{active: currentPage === 'about'}">
+                            About
+                        </a></li>
+                    <li><a
+                        href="https://avrylrodrigues.wixsite.com/uncloudlog" target="_blank" rel="noopener">
+                            Blog
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header" v-if="currentPage === 'home'">
                 <h1 v-text="sitename"></h1>
                 <p class="tagline" v-text="tagline"></p>
             </div>
         </header>
 
         <main>
-            
+            <!-- Analyse page -->
+            <section v-if="currentPage === 'analyse'">
+                <h2>Analyse Article</h2>
+                <input type="text" placeholder="Paste article URL here">
+                <button>Analyse</button>
+            </section>
+
+            <!-- About page -->
+            <section v-if="currentPage === 'about'" class="about-layout">
+                <div class="about-content">
+                    <img src="static/logo.png" alt="uncloud logo">
+                    <!-- About uncloud -->
+                    <div v-if="aboutSection === 'overview'">
+                        <h2>About uncloud</h2>
+                        <p>
+                            uncloud is a platform designed to promote informed and responsible digital news consumption by helping users understand how online information is presented.
+                        </p>
+                    </div>
+                    <!-- Why uncloud exists -->
+                    <div v-if="aboutSection === 'why'">
+                        <h2>Why uncloud exists</h2>
+                        <p>
+                            The rapid spread of online news and social media content has made it increasingly difficult for users to assess credibility. Misleading headlines and emotionally charged language often influence opinion and trust.
+                        </p>
+                        <p>That is where uncloud comes in!</p>
+                    </div>
+                    <!-- How it works -->
+                    <div v-if="aboutSection === 'how'">
+                        <h2>How uncloud works</h2>
+                        <p>
+                            uncloud allows users to submit links to news articles for analysis.
+                        </p>
+                        <p>
+                            The platform examines the tone of the language, emotional wording, and structural features commonly associated with misleading or credible content.
+                        </p>
+                    </div>
+                    <!-- Ethical approach -->
+                    <div v-if="aboutSection === 'ethics'">
+                        <h2>Ethical approach</h2>
+                        <p>
+                            uncloud does not determine truth or falsehood.
+                        </p>
+                        <p>
+                            Instead, it promotes critical thinking by providing transparent explanations that allows users to form their own informed judgments.
+                        </p>
+                    </div>
+                    <!-- Intended users -->
+                    <div v-if="aboutSection === 'users'">
+                        <h2>Intended users</h2>
+                        <p>
+                            uncloud is designed for students, researchers, and everyday readers who want to improve media literacy and engage more critically with digital news.
+                        </p>
+                    </div>
+                </div>
+                <div class="about-menu">
+                    <h3>About us</h3>
+                    <ul>
+                        <li><a
+                            href="#"
+                            @click.prevent="aboutSection = 'overview'"
+                            :class="{active: aboutSection === 'overview'}">
+                                About uncloud
+                            </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="aboutSection = 'why'"
+                            :class="{active: aboutSection === 'why'}">
+                                Why uncloud exists
+                        </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="aboutSection = 'how'"
+                            :class="{active: aboutSection === 'how'}">
+                                How it works
+                            </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="aboutSection = 'ethics'"
+                            :class="{active: aboutSection === 'ethics'}">
+                                Ethical approach
+                        </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="aboutSection = 'users'"
+                            :class="{active: aboutSection === 'users'}">
+                                Intended users
+                            </a></li>
+                    </ul>
+                </div>
+
+            </section>
         </main>
     </div>
 
@@ -34,7 +160,9 @@
             el: "#app",
             data:{
                 sitename: "uncloud",
-                tagline: "see through the noise"
+                tagline: "see through the noise",
+                currentPage: "home",
+                aboutSection: "overview"
             },
             methods: {
                 
