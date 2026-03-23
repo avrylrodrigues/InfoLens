@@ -1,36 +1,36 @@
 body{
-    background-color: #ffe1ee;
+    background-color: #36757b;
     font-family: "DM Serif Text", serif;
     font-size: 20px;
-    color: #ae83d1;
+    color: #dcdee1;
     margin: 0;
 }
 
 header h1 {
-    font-family: "Lavishly Yours", cursive;
-    color: #ae83d1;
+    font-family: "Rye", serif;
+    color: #dcdee1;
     text-align: center;
-    font-size: 200px;
-    margin-top: 10px;
+    font-size: 100px;
+    margin-top:140px;
     margin-bottom: 0;
 }
 
 .tagline {
-    font-family: "Meie Script", cursive;
-    color: #ae83d1;
+    font-family: "DM Serif Text", serif;
+    color: #dcdee1;
     text-align: center;
-    font-size: 45px;
+    font-size: 35px;
     margin-top: 0;
 }
 
 html{
-    scrollbar-color: #ffa7b8 #ffe1ee;
+    scrollbar-color: #13233b #36757b;
 }
 
 .navbar {
     display: flex;
     align-items: center;
-    background-color: #ffa7b8;
+    background-color: #13233b;
     padding: 15px 40px;
 }
 
@@ -51,7 +51,7 @@ html{
 
 .navbar a {
     text-decoration: none;
-    color: #fff;
+    color: #dcdee1;
     font-size: 25px;
     transition: text-decoration 0.2s ease;
 }
@@ -92,7 +92,7 @@ p {
 .about-content {
     flex: 3;
     font-family: "DM Serif Text", serif;
-    color: #ae83d1;
+    color: #dcdee1;
 }
 
 .about-content h2 {
@@ -106,14 +106,14 @@ p {
 
 .about-menu {
     flex: 1;
-    border-left: 1px solid #ffa7b8;
+    border-left: 1px solid #13233b;
     padding-left: 25px;
 }
 
 .about-menu h3 {
     font-size: 22px;
     margin-bottom: 15px;
-    color: #ae83d1;
+    color: #dcdee1;
 }
 
 .about-menu ul {
@@ -128,7 +128,7 @@ p {
 
 .about-menu a {
     text-decoration: none;
-    color: #ae83d1;
+    color: #dcdee1;
     font-size: 16px;
 }
 

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> uncloud </title>
+    <title> InfoLens </title>
     <!-- Import Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Meie+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rye&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Gelasio:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="static/favicon.png">
@@ -25,7 +25,7 @@
                     href="#"
                     @click.prevent="currentPage = 'home';
                     aboutSection = 'overview';">
-                        <img src="static/favicon.png" alt="uncloud favicon">
+                        <img src="static/favicon.png" alt="InfoLens favicon">
                     </a>
                 </div>
                 <ul>
@@ -48,7 +48,7 @@
                             About
                         </a></li>
                     <li><a
-                        href="https://avrylrodrigues.wixsite.com/uncloudlog" target="_blank" rel="noopener">
+                        href="https://avrylrodrigues.wixsite.com/infolenslog" target="_blank" rel="noopener">
                             Blog
                         </a>
                     </li>
@@ -71,27 +71,27 @@
             <!-- About page -->
             <section v-if="currentPage === 'about'" class="about-layout">
                 <div class="about-content">
-                    <img src="static/logo.png" alt="uncloud logo">
-                    <!-- About uncloud -->
+                    <img src="static/logo.png" alt="InfoLens logo">
+                    <!-- About InfoLens -->
                     <div v-if="aboutSection === 'overview'">
-                        <h2>About uncloud</h2>
+                        <h2>About InfoLens</h2>
                         <p>
-                            uncloud is a platform designed to promote informed and responsible digital news consumption by helping users understand how online information is presented.
+                            InfoLens is a platform designed to promote informed and responsible digital news consumption by helping users understand how online information is presented.
                         </p>
                     </div>
-                    <!-- Why uncloud exists -->
+                    <!-- Why InfoLens exists -->
                     <div v-if="aboutSection === 'why'">
-                        <h2>Why uncloud exists</h2>
+                        <h2>Why InfoLens exists</h2>
                         <p>
                             The rapid spread of online news and social media content has made it increasingly difficult for users to assess credibility. Misleading headlines and emotionally charged language often influence opinion and trust.
                         </p>
-                        <p>That is where uncloud comes in!</p>
+                        <p>That is where InfoLens comes in!</p>
                     </div>
                     <!-- How it works -->
                     <div v-if="aboutSection === 'how'">
-                        <h2>How uncloud works</h2>
+                        <h2>How InfoLens works</h2>
                         <p>
-                            uncloud allows users to submit links to news articles for analysis.
+                            InfoLens allows users to submit links to news articles for analysis.
                         </p>
                         <p>
                             The platform examines the tone of the language, emotional wording, and structural features commonly associated with misleading or credible content.
@@ -101,7 +101,7 @@
                     <div v-if="aboutSection === 'ethics'">
                         <h2>Ethical approach</h2>
                         <p>
-                            uncloud does not determine truth or falsehood.
+                            InfoLens does not determine truth or falsehood.
                         </p>
                         <p>
                             Instead, it promotes critical thinking by providing transparent explanations that allows users to form their own informed judgments.
@@ -111,7 +111,7 @@
                     <div v-if="aboutSection === 'users'">
                         <h2>Intended users</h2>
                         <p>
-                            uncloud is designed for students, researchers, and everyday readers who want to improve media literacy and engage more critically with digital news.
+                            InfoLens is designed for students, researchers, and everyday readers who want to improve media literacy and engage more critically with digital news.
                         </p>
                     </div>
                 </div>
@@ -122,13 +122,13 @@
                             href="#"
                             @click.prevent="aboutSection = 'overview'"
                             :class="{active: aboutSection === 'overview'}">
-                                About uncloud
+                                About InfoLens
                             </a></li>
                         <li><a
                             href="#"
                             @click.prevent="aboutSection = 'why'"
                             :class="{active: aboutSection === 'why'}">
-                                Why uncloud exists
+                                Why InfoLens exists
                         </a></li>
                         <li><a
                             href="#"
@@ -159,7 +159,7 @@
         var webstore = new Vue({
             el: "#app",
             data:{
-                sitename: "uncloud",
+                sitename: "InfoLens",
                 tagline: "see through the noise",
                 currentPage: "home",
                 aboutSection: "overview"
