@@ -14,7 +14,6 @@
     <link rel="icon" type="image/png" href="static/favicon.png">
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
     <div id="app">
@@ -25,7 +24,7 @@
                     href="#"
                     @click.prevent="currentPage = 'home';
                     aboutSection = 'overview';">
-                        <img src="static/favicon.png" alt="InfoLens favicon">
+                        <img src="static/navicon.png" alt="InfoLens navicon">
                     </a>
                 </div>
                 <ul>
@@ -70,42 +69,109 @@
 
             <!-- About page -->
             <section v-if="currentPage === 'about'" class="about-layout">
+                <!-- About menu -->
+                <div class="about-menu">
+                    <h3>About us</h3>
+                    <ul>
+                        <li><a
+                            href="#"
+                            @click.prevent="navigateTo('overview')"
+                            :class="{active: aboutSection === 'overview'}">
+                                About InfoLens
+                            </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="navigateTo('why')"
+                            :class="{active: aboutSection === 'why'}">
+                                Why InfoLens exists
+                        </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="navigateTo('how')"
+                            :class="{active: aboutSection === 'how'}">
+                                How InfoLens works
+                        </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="navigateTo('ethics')"
+                            :class="{active: aboutSection === 'ethics'}">
+                                Ethical approach
+                        </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="navigateTo('users')"
+                            :class="{active: aboutSection === 'users'}">
+                                Intended users
+                        </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="navigateTo('impact')"
+                            :class="{active: aboutSection === 'impact'}">
+                                Vision and Impact
+                        </a></li>
+                    </ul>
+                </div>
+                <!-- About content -->
                 <div class="about-content">
-                    <img src="static/logo.png" alt="InfoLens logo">
                     <!-- About InfoLens -->
                     <div v-if="aboutSection === 'overview'">
                         <h2>About InfoLens</h2>
                         <p>
                             InfoLens is a platform designed to promote informed and responsible digital news consumption by helping users understand how online information is presented.
                         </p>
+                        <p>
+                            InfoLens utilizes Natural Language Processing (NLP) via Python to deconstruct news articles into factors such as emotion, structural bias, and source reliability.
+                        </p>
+                        <p>
+                            By doing this, InfoLens encourages useres to understand how news is presented and supports critical thinking.
+                        </p>
+                        <img src="static/logo.png" class="about-image" alt="InfoLens logo">
                     </div>
                     <!-- Why InfoLens exists -->
                     <div v-if="aboutSection === 'why'">
                         <h2>Why InfoLens exists</h2>
                         <p>
-                            The rapid spread of online news and social media content has made it increasingly difficult for users to assess credibility. Misleading headlines and emotionally charged language often influence opinion and trust.
+                            The increased availability of online news has made it difficult for users to assess the credibility of digital content.
+                        </p>
+                        <p>
+                            Misleading articles often rely on emotional language and sensational headlines, which can influence readers without providing reliable information.
+                        </p>
+                        <p>
+                            Therefore, there is a need for a platform that helps individuals understand how news is presented, supports critical thinking, and enables more informed decisions before trusting or sharing online information.
                         </p>
                         <p>That is where InfoLens comes in!</p>
+                        <img src="static/whyInfolens.png" class="why-image" alt="Why InfoLens exists">
                     </div>
                     <!-- How it works -->
                     <div v-if="aboutSection === 'how'">
                         <h2>How InfoLens works</h2>
                         <p>
-                            InfoLens allows users to submit links to news articles for analysis.
+                            InfoLens is an innovative news verification framework designed to bridge the transparency gap.
                         </p>
                         <p>
-                            The platform examines the tone of the language, emotional wording, and structural features commonly associated with misleading or credible content.
+                            Unlike traditional fact-checkers that provide just true or false verdicts, InfoLens introduces an explainability layer with the help of explainable AI (XAI) that makes the provided score understandable to users.
                         </p>
+                        <p>
+                            InfoLens allows users to submit links to news articles for analysis, which the platform then examines. It deconstructs news articles into distinct linguistic vectors like the tone of the language, emotional wording, and structural features commonly associated with misleading or credible content.
+                        </p>
+                        <p>
+                            By converting these scores into visual indicators like the credibility gauge, it shifts the focus from “what to think" to "how to evaluate", empowering users to use their critical thinking skills needed for the digital age.
+                        </p>
+                        <img src="static/howInfolens.png" class="how-image" alt="How InfoLens works">
                     </div>
                     <!-- Ethical approach -->
                     <div v-if="aboutSection === 'ethics'">
                         <h2>Ethical approach</h2>
                         <p>
-                            InfoLens does not determine truth or falsehood.
+                            Most tools tell you what to think with a binary true or false label, however this approach limits critical thinking.
                         </p>
                         <p>
-                            Instead, it promotes critical thinking by providing transparent explanations that allows users to form their own informed judgments.
+                            InfoLens does not determine whether the news is true or false, instead it promotes critical thinking by providing transparent explanations that allows users to form their own informed judgments.
                         </p>
+                        <p>
+                            InfoLens shows you the evidence, which is the specific sentences and markers that triggered the analysis scores, so that the final judgment remains with you.
+                        </p>
+                        <img src="static/ethicalApproach.png" class="ethics-image" alt="Ethical Approach">
                     </div>
                     <!-- Intended users -->
                     <div v-if="aboutSection === 'users'">
@@ -113,44 +179,43 @@
                         <p>
                             InfoLens is designed for students, researchers, and everyday readers who want to improve media literacy and engage more critically with digital news.
                         </p>
+                        <p>
+                            For students, it is a research assistant that validates sources for academic purposes.
+                        </p>
+                        <p>
+                            For researchers, it could be used as a tool to track patterns in misinformation.
+                        </p>
+                        <p>
+                            For an everyday consumer, it acts as protection against misinformation.
+                        </p>
+                        <p>
+                            The goal of InfoLens is to create a global community of critical thinkers who value evidence over emotion.
+                        </p>
+                        <img src="static/intendedUsers.png" class="users-image" alt="Intended users">
+                    </div>
+                    <!-- Vision and Impact -->
+                    <div v-if="aboutSection === 'impact'">
+                        <h2>Vision and Impact</h2>
+                        <p>
+                            Current digital literacy is struggling to keep pace with the speed of social media. Sensationalised headlines are more likely to be shared than factual ones, contributing to social polarization.
+                        </p>
+                        <p>
+                            Here is the impact InfoLens could make:
+                            <ul class="impact-list">
+                                <li>
+                                    Societal: Restores trust in verified journalism by making the verification process human-readable and understandable.
+                                </li>
+                                <li>
+                                    Educational: Acts as a tool for students and professionals to recognize linguistic red flags.
+                                </li>
+                            </ul>
+                        </p>
+                        <p>
+                            By aligning with UN Sustainable Development Goal 16 (Peace, Justice, and Strong Institutions), InfoLens seeks to restore trust in journalism, providing an accessible tool for educational and media organizations to promote critical thinking and responsible information consumption in the digital age.
+                        </p>
+                        <img src="static/visionAndImpact.png" class="impact-image" alt="Vision and Impact">
                     </div>
                 </div>
-                <div class="about-menu">
-                    <h3>About us</h3>
-                    <ul>
-                        <li><a
-                            href="#"
-                            @click.prevent="aboutSection = 'overview'"
-                            :class="{active: aboutSection === 'overview'}">
-                                About InfoLens
-                            </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="aboutSection = 'why'"
-                            :class="{active: aboutSection === 'why'}">
-                                Why InfoLens exists
-                        </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="aboutSection = 'how'"
-                            :class="{active: aboutSection === 'how'}">
-                                How it works
-                            </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="aboutSection = 'ethics'"
-                            :class="{active: aboutSection === 'ethics'}">
-                                Ethical approach
-                        </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="aboutSection = 'users'"
-                            :class="{active: aboutSection === 'users'}">
-                                Intended users
-                            </a></li>
-                    </ul>
-                </div>
-
             </section>
         </main>
     </div>
@@ -165,7 +230,15 @@
                 aboutSection: "overview"
             },
             methods: {
-                
+                // Handles about page navigation and scrolling
+                navigateTo(section) {
+                    this.aboutSection = section;
+                    // Scroll to the top of the window
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
             },
             computed: {
 

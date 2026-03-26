@@ -4,6 +4,7 @@ body{
     font-size: 20px;
     color: #dcdee1;
     margin: 0;
+    padding-top: 90px;
 }
 
 header h1 {
@@ -11,7 +12,7 @@ header h1 {
     color: #dcdee1;
     text-align: center;
     font-size: 100px;
-    margin-top:140px;
+    margin-top: 140px;
     margin-bottom: 0;
 }
 
@@ -32,6 +33,12 @@ html{
     align-items: center;
     background-color: #13233b;
     padding: 15px 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
 }
 
 .nav-logo img {
@@ -82,13 +89,6 @@ p {
     padding: 0 20px;
 }
 
-.about-layout img {
-    float: left;
-    height: 250px;
-    margin-right: 20px;
-    margin-bottom: 10px;
-}
-
 .about-content {
     flex: 3;
     font-family: "DM Serif Text", serif;
@@ -102,12 +102,42 @@ p {
 
 .about-content p {
     font-size: 18px;
+    text-align: left;
+}
+
+.about-image,
+.how-image,
+.ethics-image,
+.users-image,
+.impact-image {
+    height: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    max-width: 100%;
+}
+
+.why-image {
+    height: 350px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    max-width: 100%;
+}
+
+.impact-list li {
+    font-size: 18px;
 }
 
 .about-menu {
     flex: 1;
-    border-left: 1px solid #13233b;
-    padding-left: 25px;
+    padding-right: 25px;
+    position: sticky;
+    top: 150px;
+    align-self: flex-start;
+    border-right: 1px solid #13233b;
 }
 
 .about-menu h3 {
