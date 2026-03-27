@@ -63,8 +63,15 @@
             <!-- Analyse page -->
             <section v-if="currentPage === 'analyse'">
                 <h2>Analyse Article</h2>
-                <input type="text" placeholder="Paste article URL here">
-                <button>Analyse</button>
+                <div class="article-submission">
+                    <input 
+                        type="text" 
+                        v-model="articleUrl" 
+                        placeholder="Paste article URL here..."
+                        @keyup.enter="analyseArticle" 
+                    >
+                    <button @click="analyseArticle">Analyse</button>
+                </div>
             </section>
 
             <!-- About page -->
@@ -227,7 +234,8 @@
                 sitename: "InfoLens",
                 tagline: "see through the noise",
                 currentPage: "home",
-                aboutSection: "overview"
+                aboutSection: "overview",
+                articleUrl: ""
             },
             methods: {
                 // Handles about page navigation and scrolling
@@ -238,10 +246,23 @@
                         top: 0,
                         behavior: 'smooth'
                     });
+                },
+                // Validates the article provided
+                analyseArticle() {
+                    const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+                    // Checks if the input is empty
+                    if (!this.articleUrl) {
+                        alert("Please paste a URL to begin.");
+                        return;
+                    }
+                    // Tests the article URL against Regex
+                    if (!urlPattern.test(this.articleUrl)) {
+                        alert("That doesn't look like a valid URL! Please check the format.");
+                        return;
+                    }
+                    // Success message
+                    alert("InfoLens is now analyzing the linguistic markers of: \n'" + this.articleUrl + "'");
                 }
-            },
-            computed: {
-
             }
         });
     </script>
