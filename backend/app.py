@@ -16,6 +16,10 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+# Pre-load required NLTK datasets
+nltk.download('punkt_tab')
+nltk.download('averaged_perceptron_tagger_eng')
+
 # Score Label
 def get_subjectivity_label(score):
     if score <= 25: return "Neutral"
