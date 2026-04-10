@@ -18,41 +18,37 @@
 <body>
     <div id="app">
         <header>
+            <!-- Navigation bar -->
             <nav class="navbar">
                 <div class="nav-logo">
-                    <a
-                    href="#"
-                    @click.prevent="currentPage = 'home';
-                    aboutSection = 'overview';">
+                    <a href="#" @click.prevent="changePage('home')">
                         <img src="static/navicon.png" alt="InfoLens navicon">
                     </a>
                 </div>
                 <ul>
-                    <li><a
-                        href="#"
-                        @click.prevent="currentPage = 'home'"
-                        :class="{active: currentPage === 'home'}">
+                    <li>
+                        <a href="#" @click.prevent="changePage('home')" :class="{active: currentPage === 'home'}">
                             Home
-                    </a></li>
-                    <li><a
-                        href="#"
-                        @click.prevent="currentPage = 'analyse'"
-                        :class="{active: currentPage === 'analyse'}">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" @click.prevent="changePage('analyse')" :class="{active: currentPage === 'analyse'}">
                             Analyse
-                        </a></li>
-                    <li><a
-                        href="#"
-                        @click.prevent="currentPage = 'about'; aboutSection = 'overview';"
-                        :class="{active: currentPage === 'about'}">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" @click.prevent="changePage('about')" :class="{active: currentPage === 'about'}">
                             About
-                        </a></li>
-                    <li><a
-                        href="https://avrylrodrigues.wixsite.com/infolenslog" target="_blank" rel="noopener">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://avrylrodrigues.wixsite.com/infolenslog" target="_blank" rel="noopener">
                             Blog
                         </a>
                     </li>
                 </ul>
             </nav>
+            <!-- Home page -->
             <div class="header" v-if="currentPage === 'home'">
                 <h1 v-text="sitename"></h1>
                 <p class="tagline" v-text="tagline"></p>
@@ -63,6 +59,7 @@
             <!-- Analyse page -->
             <section v-if="currentPage === 'analyse'">
                 <h2>Analyse Article</h2>
+                <!-- Article input field and button -->
                 <div class="article-submission">
                     <input 
                         type="text" 
@@ -70,7 +67,77 @@
                         placeholder="Paste article URL here..."
                         @keyup.enter="analyseArticle" 
                     >
-                    <button @click="analyseArticle">Analyse</button>
+                    <div>
+                        <button 
+                            @click="analyseArticle" 
+                            :disabled="isAnalyzing">
+                            Analyse
+                        </button>
+                    </div>
+                </div>
+                <!-- Loading state -->
+                <div class="loader-container">
+                    <div v-if="isAnalyzing" class="loader-wrapper">
+                        <div class="loading-spinner"></div>
+                        <p class="loading-text">InfoLens is deconstructing the article...</p>
+                    </div>
+                </div>
+                <!-- Credibility gauge -->
+                <div v-if="analysisResult" ref="results" class="results-container">
+                    <div class="gauge-wrapper">
+                        <div class="semi-circle-gauge" :style="{ '--score': analysisResult.risk_gauge }">
+                            <div class="gauge-needle"></div>
+                            <div class="gauge-center-mask">
+                                <span class="score-text">{{ analysisResult.risk_gauge }}%</span>
+                            </div>
+                        </div>
+                        <p class="verdict-label">{{ analysisResult.verdict }}</p>
+                    </div>
+                    <div class="analysis-grid">
+                        <!-- Overall Breakdown column -->
+                        <div class="column-left">
+                            <h3 class="sticky-header">Overall Breakdown</h3>
+                            <div class="summary-box">
+                                <p><strong>Title:</strong> {{ analysisResult.title }}</p>
+                                <p><strong>Source:</strong> {{ analysisResult.publisher }}</p>
+                                <p>
+                                    This article from <strong>{{ analysisResult.publisher }}</strong> shows a <strong>{{ analysisResult.risk_gauge }}%</strong> match with sensationalist patterns.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Sentence-by-Sentence Breakdown column -->
+                        <div class="column-right">
+                            <h3 class="sticky-header">
+                                Sentence-by-Sentence Breakdown
+                                <!-- Calculation tooltip -->
+                                <span class="info-icon">
+                                    ?
+                                    <div class="info-tooltip">
+                                        <strong class="info-heading">How we calculate these scores</strong>
+                                        <p><strong>Subjectivity: </strong>Measures opinionated vs. factual language.</p>
+                                        <p><strong>Adjective Density: </strong>A high amount descriptive words often indicate sensationalist reporting.</p>
+                                    </div>
+                                </span>
+                            </h3>
+                            <!-- Tooltip -->
+                            <div class="scroll-box">
+                                <div
+                                    v-for="(item, index) in analysisResult.sentences"
+                                    :key="index"
+                                    class="sentence-box"
+                                    :class="{
+                                        'risk-high': item.risk_score >= 60,
+                                        'risk-med': item.risk_score > 25 && item.risk_score < 60,
+                                        'risk-low': item.risk_score <= 25
+                                    }">
+                                    <p>
+                                        {{ item.text }}
+                                        <span class="tooltip-data"> {{ item.details }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -225,6 +292,10 @@
                 </div>
             </section>
         </main>
+        <!-- Automatic scroll button -->
+        <button class="back-to-top" v-show="showBackToTop" @click="scrollToTop">
+            ↑
+        </button>
     </div>
 
     <script type="text/javascript">
@@ -232,22 +303,33 @@
             el: "#app",
             data:{
                 sitename: "InfoLens",
-                tagline: "see through the noise",
+                tagline: "Clarifying online news through AI-driven analysis",
                 currentPage: "home",
                 aboutSection: "overview",
-                articleUrl: ""
+                articleUrl: "",
+                analysisResult: null,
+                isAnalyzing: false,
+                showBackToTop: false
             },
             methods: {
-                // Handles about page navigation and scrolling
+                // Handles page navigation
+                changePage(page) {
+                    this.currentPage = page;
+                    // Resets the analyse page
+                    this.articleUrl = "";
+                    this.analysisResult = null;
+                    // Reset if going to the about page
+                    if (page === 'about') this.aboutSection = 'overview';
+                    // Reset scroll to the top
+                    window.scrollTo(0, 0);
+                },
+                // Handles navigation for about page
                 navigateTo(section) {
                     this.aboutSection = section;
                     // Scroll to the top of the window
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
+                    this.scrollToTop();
                 },
-                // Validates the article provided
+                // Validates the article link provided
                 analyseArticle() {
                     const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
                     // Checks if the input is empty
@@ -260,9 +342,53 @@
                         alert("That doesn't look like a valid URL! Please check the format.");
                         return;
                     }
-                    // Success message
-                    alert("InfoLens is now analyzing the linguistic markers of: \n'" + this.articleUrl + "'");
+                    // Clear previous results
+                    this.analysisResult = null;
+                    // Setup loading state
+                    this.isAnalyzing = true;
+                    // Sends the data to Python
+                    fetch('http://127.0.0.1:5000/analyse', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ url: this.articleUrl }),
+                    })
+                    .then(response => response.json())
+                    // Shows the result received from Python
+                    .then(data => {
+                        this.isAnalyzing = false;
+                        this.analysisResult = data.message; 
+                        console.log("Analysis Data Received:", this.analysisResult);
+                        // Takes you to the results once it is rendered
+                        this.$nextTick(() => {
+                            if (this.$refs.results) {
+                                this.$refs.results.scrollIntoView({ 
+                                    behavior: 'smooth', 
+                                    block: 'start' 
+                                });
+                            }
+                        });
+                    })
+                    .catch((error) => {
+                        this.isAnalyzing = false;
+                        console.error('Error:', error);
+                        alert("Connection failed!");
+                    });
+                },
+                // Scrolls to the top of the page
+                scrollToTop() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                },
+                // Shows the automatic scroll button after the user scrolls down
+                handleScroll() {
+                    this.showBackToTop = window.scrollY > 300;
                 }
+            },
+            // Checks if the user scrolls
+            mounted() {
+                window.addEventListener('scroll', this.handleScroll);
             }
         });
     </script>
