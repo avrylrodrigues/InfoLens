@@ -347,7 +347,7 @@
                     // Setup loading state
                     this.isAnalyzing = true;
                     // Sends the data to Python
-                    fetch('http://127.0.0.1:5000/analyse', {
+                    fetch('https://infolens-a3pv.onrender.com/analyse', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ url: this.articleUrl }),
