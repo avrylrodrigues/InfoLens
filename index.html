@@ -32,6 +32,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="#" @click.prevent="changePage('how')" :class="{active: currentPage === 'how'}">
+                            How to Use
+                        </a>
+                    </li>
+                    <li>
                         <a href="#" @click.prevent="changePage('analyse')" :class="{active: currentPage === 'analyse'}">
                             Analyse
                         </a>
@@ -56,6 +61,102 @@
         </header>
 
         <main>
+            <!-- How to Use page -->
+            <section v-if="currentPage === 'how'" class="how-layout">
+                <!-- How to Use menu -->
+                <div class="how-menu">
+                    <h3>How to Use InfoLens</h3>
+                    <ul>
+                        <li><a
+                            href="#"
+                            @click.prevent="navigateTo('steps')"
+                            :class="{active: how === 'steps'}">
+                            Getting Started
+                        </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="navigateTo('gauge')"
+                            :class="{active: how === 'gauge'}">
+                            Reading the credibility gauge
+                        </a></li>
+                        <li><a
+                            href="#"
+                            @click.prevent="navigateTo('metrics')"
+                            :class="{active: how === 'metrics'}">
+                            Understanding the scores
+                        </a></li>
+                    </ul>
+                </div>
+                <!-- How to Use content -->
+                <div class="how-content">
+                    <!-- Getting Started -->
+                    <div v-if="how === 'steps'">
+                        <h2>How to Analyze an Article</h2>
+                        <ol class="impact-list">
+                            <li><strong>Find a News URL</strong>: Copy the full link (address) of any news article you want to check.</li>
+                            <img src="static/howTo1.png" class="howTo1-image" alt="News article link">
+                            <li><strong>Paste & Analyze</strong>: Navigate to the 'Analyse' page, paste the link into the input box, and hit the 'Analyse' button.</li>
+                            <img src="static/howTo2.png" class="howTo2-image" alt="Analyse page">
+                            <img src="static/howTo3.png" class="howTo3-image" alt="Analyse page with link">
+                            <li><strong>Wait for Deconstruction</strong>: InfoLens will break the article down sentence-by-sentence to look for linguistic patterns.</li>
+                            <img src="static/howTo4.png" class="howTo4-image" alt="Credibility gauge">
+                        </ol>
+                        <p class="tip">Note: InfoLens shows you the patterns, but the final verdict belongs to you.</p>
+                    </div>
+                    <!-- Reading the credibility gauge -->
+                    <div v-if="how === 'gauge'">
+                        <h2>Understanding the credibility gauge</h2>
+                        <p>The needle represents the overall credibility of the article</p>
+                        <ul>
+                            <li>Low Risk: <strong class="low-risk">Green (0-25%)</strong> The language is factual and objective.</li>
+                            <img src="static/gaugeLow.png" class="gaugeLow-image" alt="Gauge at low risk">
+                            <li>Moderate Risk: <strong class="mid-risk">Yellow/Orange (26-75%)</strong> Contains some opinionated phrasing or heavy adjective use.</li>
+                            <img src="static/gaugeMid.png" class="gaugeMid-image" alt="Gauge at mid risk">
+                            <li>High Risk: <strong class="high-risk">Red (75%+)</strong> Strong signals of sensationalist or emotionally manipulative language.</li>
+                            <img src="static/gaugeHigh.png" class="gaugeHigh-image" alt="Gauge at high risk">
+                        </ul>
+                    </div>
+                    <!-- Understanding the scores -->
+                    <div v-if="how === 'metrics'">
+                        <h2>Understanding the scores</h2>
+                        <p>InfoLens uses two primary markers to determine the credibility score:</p>
+                        <div class="score-explanation">
+                            <p><strong>Subjectivity</strong>: High subjectivity means the author is using personal opinions rather than verified facts.</p>
+                            <p><strong>Adjective density</strong>: Sensationalist news often over describes events with emotional adjectives to trigger a reaction, this means news articles that use too many adjectives are not credible.</p>
+                            <p><strong>Credibility score</strong>: These two markers are added together and averaged to get the credibility score.</p>
+                            <p><strong>Verdict label</strong>: Based on the final percentage, InfoLens assigns a verdict label to describe the overall tone of the sentence.</p>
+                            <table class="verdict-table">
+                                <tr>
+                                    <th>Risk Score</th>
+                                    <th>Verdict Label</th>
+                                    <th>Linguistic Meaning</th>
+                                </tr>
+                                <tr>
+                                    <td>0 - 25%</td>
+                                    <td class="low-risk">Neutral</td>
+                                    <td>The writing is objective and factual.</td>
+                                </tr>
+                                <tr>
+                                    <td>26 - 59%</td>
+                                    <td class="mid-risk">Balanced</td>
+                                    <td>A mix of facts and minor descriptive or opinionated phrasing.</td>
+                                </tr>
+                                <tr>
+                                    <td>60 - 74%</td>
+                                    <td class="high-risk">Opinionated</td>
+                                    <td>The language leans heavily toward a specific perspective.</td>
+                                </tr>
+                                <tr>
+                                    <td>75% +</td>
+                                    <td class="high-risk">Highly Subjective</td>
+                                    <td>Strong presence of emotional bias and sensationalist patterns.</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Analyse page -->
             <section v-if="currentPage === 'analyse'">
                 <h2>Analyse Article</h2>
@@ -152,7 +253,7 @@
                             @click.prevent="navigateTo('overview')"
                             :class="{active: aboutSection === 'overview'}">
                                 About InfoLens
-                            </a></li>
+                        </a></li>
                         <li><a
                             href="#"
                             @click.prevent="navigateTo('why')"
@@ -306,6 +407,7 @@
                 tagline: "Clarifying online news through AI-driven analysis",
                 currentPage: "home",
                 aboutSection: "overview",
+                how: "steps",
                 articleUrl: "",
                 analysisResult: null,
                 isAnalyzing: false,
@@ -320,12 +422,15 @@
                     this.analysisResult = null;
                     // Reset if going to the about page
                     if (page === 'about') this.aboutSection = 'overview';
+                    // Reset if going to the how to use page
+                    if (page === 'how') this.how = 'steps';
                     // Reset scroll to the top
                     window.scrollTo(0, 0);
                 },
-                // Handles navigation for about page
+                // Handles navigation for how to use and about page
                 navigateTo(section) {
                     this.aboutSection = section;
+                    this.how = section;
                     // Scroll to the top of the window
                     this.scrollToTop();
                 },

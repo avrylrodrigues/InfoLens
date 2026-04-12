@@ -84,12 +84,108 @@ p {
 }
 
 .navbar a.active,
-.about-menu a.active {
+.about-menu a.active,
+.how-menu a.active {
     text-decoration: underline;
 }
 
+/* How to Use page */
+.how-content .impact-list strong,
+.score-explanation strong {
+    text-decoration: underline;
+    font-weight: normal;
+}
+
+.howTo1-image {
+    height: 40px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 100%;
+}
+
+.howTo2-image,
+.howTo3-image,
+.howTo4-image {
+    height: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 100%;
+}
+
+.how-content .tip {
+    font-style: italic;
+    font-size: 20px;
+    color: #a0aec0;
+    margin-top: 10px;
+}
+
+.how-content .low-risk {
+    background-color: #28b161;
+    color: #dcdee1;
+    padding: 0px 4px;
+    border-radius: 4px;
+    font-weight: normal;
+}
+
+.how-content .mid-risk {
+    background-color: #c4a011;
+    color: #dcdee1;
+    padding: 0px 4px;
+    border-radius: 4px;
+    font-weight: normal;
+}
+
+.how-content .high-risk {
+    background-color: #e74c3c;
+    color: #dcdee1;
+    padding: 0px 4px;
+    border-radius: 4px;
+    font-weight: normal;
+}
+
+.gaugeLow-image,
+.gaugeMid-image,
+.gaugeHigh-image {
+    height: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 100%;
+}
+
+.verdict-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.verdict-table td {
+    font-size: 15px;
+    border: 1px solid #dcdee1;
+    padding: 12px;
+    text-align: left;
+}
+
+.verdict-table th {
+    font-size: 15px;
+    background-color: #36757b;
+    font-weight: bold;
+    border: 1px solid #dcdee1;
+    padding: 12px;
+    text-align: left;
+}
+
 /* About page */
-.about-layout {
+.about-layout,
+.how-layout {
     display: flex;
     gap: 60px;
     max-width: 1100px;
@@ -97,18 +193,21 @@ p {
     padding: 0 20px;
 }
 
-.about-content {
+.about-content,
+.how-content {
     flex: 3;
     font-family: "DM Serif Text", serif;
     color: #dcdee1;
 }
 
-.about-content h2 {
+.about-content h2,
+.how-content h2 {
     font-size: 30px;
     margin-bottom: 15px;
 }
 
-.about-content p {
+.about-content p,
+.how-content p {
     font-size: 18px;
     text-align: left;
 }
@@ -139,7 +238,8 @@ p {
     font-size: 18px;
 }
 
-.about-menu {
+.about-menu,
+.how-menu {
     flex: 1;
     padding-right: 25px;
     position: sticky;
@@ -148,29 +248,34 @@ p {
     border-right: 1px solid #13233b;
 }
 
-.about-menu h3 {
+.about-menu h3,
+.how-menu h3 {
     font-size: 22px;
     margin-bottom: 15px;
     color: #dcdee1;
 }
 
-.about-menu ul {
+.about-menu ul,
+.how-menu ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.about-menu li {
+.about-menu li,
+.how-menu li {
     margin-bottom: 12px;
 }
 
-.about-menu a {
+.about-menu a,
+.how-menu a {
     text-decoration: none;
     color: #dcdee1;
     font-size: 16px;
 }
 
-.about-menu a:hover {
+.about-menu a:hover,
+.how-menu a:hover {
     text-decoration: underline;
 }
 
