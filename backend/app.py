@@ -36,7 +36,7 @@ def analyze_page_content(url):
         # Gets and cleans the URL
         publisher_name = urlparse(url).netloc.replace('www.', '')
         # Log the publisher name
-        print(f"[2/4] Publisher Identified: {publisher_name}")
+        print(f"[2/4] Publisher Name: {publisher_name}")
         # Mimics a real browser to prevent being blocked by news sites
         headers = {'User-Agent': 'Mozilla/5.0'}
         response = requests.get(url, headers=headers, timeout=10)
@@ -132,7 +132,7 @@ def analyse_url():
         print(f"\n{'='*50}")
     else:
         print(f"FAILED: {result['error']}")
-        print(f"\n{'='*50}")
+        print(f"{'='*50}\n")
 
     # Send the result to the frontend
     return jsonify({
