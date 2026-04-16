@@ -32,7 +32,7 @@ def get_subjectivity_label(score):
 def analyze_page_content(url):
     try:
         # Log the submitted link
-        print(f"\n[1/4] URL Submitted: {url}")
+        print(f"[1/4] URL Submitted: {url}")
         # Gets and cleans the URL
         publisher_name = urlparse(url).netloc.replace('www.', '')
         # Log the publisher name
@@ -121,16 +121,18 @@ def analyse_url():
     url = data.get('url')
 
     # Header Log
-    print(f"\n{'='*30}")
+    print(f"\n{'='*50}")
     print(f"[{now}] NEW REQUEST RECEIVED")
     
     result = analyze_page_content(url)
 
-    # Summary log after the analysis finishes
+    # Log after the analysis finishes
     if "error" not in result:
         print(f"SUCCESS: Analysis completed for {result['publisher']}")
+        print(f"\n{'='*50}")
     else:
         print(f"FAILED: {result['error']}")
+        print(f"\n{'='*50}")
 
     # Send the result to the frontend
     return jsonify({
