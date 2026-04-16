@@ -121,7 +121,7 @@ def analyse_url():
     url = data.get('url')
 
     # Header Log
-    print(f"\n{'='*50}")
+    print(f"\n{'='*80}")
     print(f"[{now}] NEW REQUEST RECEIVED")
     
     result = analyze_page_content(url)
@@ -129,10 +129,10 @@ def analyse_url():
     # Log after the analysis finishes
     if "error" not in result:
         print(f"SUCCESS: Analysis completed for {result['publisher']}")
-        print(f"\n{'='*50}")
+        print(f"{'='*80}\n")
     else:
         print(f"FAILED: {result['error']}")
-        print(f"{'='*50}\n")
+        print(f"{'='*80}\n")
 
     # Send the result to the frontend
     return jsonify({
