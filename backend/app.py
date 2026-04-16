@@ -12,6 +12,8 @@ import requests
 # Breaks the article into individual sentences
 import nltk
 import os
+# For the purpose of console logs
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -29,8 +31,12 @@ def get_subjectivity_label(score):
 
 def analyze_page_content(url):
     try:
+        # Log the submitted link
+        print(f"\n[1/4] URL Submitted: {url}")
         # Gets and cleans the URL
         publisher_name = urlparse(url).netloc.replace('www.', '')
+        # Log the publisher name
+        print(f"[2/4] Publisher Identified: {publisher_name}")
         # Mimics a real browser to prevent being blocked by news sites
         headers = {'User-Agent': 'Mozilla/5.0'}
         response = requests.get(url, headers=headers, timeout=10)
@@ -38,6 +44,8 @@ def analyze_page_content(url):
         soup = BeautifulSoup(response.text, 'html.parser')
         # Extract the title and text
         page_title = soup.title.string if soup.title else "Unknown Title"
+        # Log the article title
+        print(f"[3/4] Article Title: {page_title}")
         # Gets text from <p> tags to avoid other unnecessary text
         paragraphs = soup.find_all('p')
         # Skips common footer/header noise
@@ -91,6 +99,8 @@ def analyze_page_content(url):
             verdict = "Moderate Risk: Significant biased language found."
         else:
             verdict = "High Risk: Sensationalist or biased patterns found."
+        # Log the Final Verdict
+        print(f"[4/4] Final Verdict: {verdict} ({risk_score}% Risk)")
         # Return the data
         return {
             "title": page_title,
@@ -105,10 +115,23 @@ def analyze_page_content(url):
 
 @app.route('/analyse', methods=['POST'])
 def analyse_url():
+    # Log the start time of the analysis
+    now = datetime.now().strftime("%H:%M:%S")
     data = request.json
     url = data.get('url')
-    print(f"Scraping & Analyzing: {url}")
+
+    # Header Log
+    print(f"\n{'='*30}")
+    print(f"[{now}] NEW REQUEST RECEIVED")
+    
     result = analyze_page_content(url)
+
+    # Summary log after the analysis finishes
+    if "error" not in result:
+        print(f"SUCCESS: Analysis completed for {result['publisher']}")
+    else:
+        print(f"FAILED: {result['error']}")
+
     # Send the result to the frontend
     return jsonify({
         "status": "success",
