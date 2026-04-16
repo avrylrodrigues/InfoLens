@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" href="static/favicon.png">
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div id="app">
@@ -65,27 +66,32 @@
             <section v-if="currentPage === 'how'" class="how-layout">
                 <!-- How to Use menu -->
                 <div class="how-menu">
-                    <h3>How to Use InfoLens</h3>
-                    <ul>
-                        <li><a
-                            href="#"
-                            @click.prevent="navigateTo('steps')"
-                            :class="{active: how === 'steps'}">
-                            Getting Started
-                        </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="navigateTo('gauge')"
-                            :class="{active: how === 'gauge'}">
-                            Reading the credibility gauge
-                        </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="navigateTo('metrics')"
-                            :class="{active: how === 'metrics'}">
-                            Understanding the scores
-                        </a></li>
-                    </ul>
+                    <button class="menu-toggle" @click="isLocalMenuOpen = !isLocalMenuOpen">
+                        {{ isLocalMenuOpen ? '✕ Close Menu' : '☰ Menu' }}
+                    </button>
+                    <div class="menu-content" :class="{ 'show': isLocalMenuOpen }">
+                        <h3>How to Use InfoLens</h3>
+                        <ul>
+                            <li><a
+                                href="#"
+                                @click.prevent="navigateTo('steps')"
+                                :class="{active: how === 'steps'}">
+                                Getting Started
+                            </a></li>
+                            <li><a
+                                href="#"
+                                @click.prevent="navigateTo('gauge')"
+                                :class="{active: how === 'gauge'}">
+                                Reading the credibility gauge
+                            </a></li>
+                            <li><a
+                                href="#"
+                                @click.prevent="navigateTo('metrics')"
+                                :class="{active: how === 'metrics'}">
+                                Understanding the scores
+                            </a></li>
+                        </ul>
+                    </div>
                 </div>
                 <!-- How to Use content -->
                 <div class="how-content">
@@ -246,45 +252,50 @@
             <section v-if="currentPage === 'about'" class="about-layout">
                 <!-- About menu -->
                 <div class="about-menu">
-                    <h3>About us</h3>
-                    <ul>
-                        <li><a
-                            href="#"
-                            @click.prevent="navigateTo('overview')"
-                            :class="{active: aboutSection === 'overview'}">
-                                About InfoLens
-                        </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="navigateTo('why')"
-                            :class="{active: aboutSection === 'why'}">
-                                Why InfoLens exists
-                        </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="navigateTo('how')"
-                            :class="{active: aboutSection === 'how'}">
-                                How InfoLens works
-                        </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="navigateTo('ethics')"
-                            :class="{active: aboutSection === 'ethics'}">
-                                Ethical approach
-                        </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="navigateTo('users')"
-                            :class="{active: aboutSection === 'users'}">
-                                Intended users
-                        </a></li>
-                        <li><a
-                            href="#"
-                            @click.prevent="navigateTo('impact')"
-                            :class="{active: aboutSection === 'impact'}">
-                                Vision and Impact
-                        </a></li>
-                    </ul>
+                    <button class="menu-toggle" @click="isLocalMenuOpen = !isLocalMenuOpen">
+                        {{ isLocalMenuOpen ? '✕ Close Menu' : '☰ Menu' }}
+                    </button>
+                    <div class="menu-content" :class="{ 'show': isLocalMenuOpen }">
+                        <h3>About us</h3>
+                        <ul>
+                            <li><a
+                                href="#"
+                                @click.prevent="navigateTo('overview')"
+                                :class="{active: aboutSection === 'overview'}">
+                                    About InfoLens
+                            </a></li>
+                            <li><a
+                                href="#"
+                                @click.prevent="navigateTo('why')"
+                                :class="{active: aboutSection === 'why'}">
+                                    Why InfoLens exists
+                            </a></li>
+                            <li><a
+                                href="#"
+                                @click.prevent="navigateTo('how')"
+                                :class="{active: aboutSection === 'how'}">
+                                    How InfoLens works
+                            </a></li>
+                            <li><a
+                                href="#"
+                                @click.prevent="navigateTo('ethics')"
+                                :class="{active: aboutSection === 'ethics'}">
+                                    Ethical approach
+                            </a></li>
+                            <li><a
+                                href="#"
+                                @click.prevent="navigateTo('users')"
+                                :class="{active: aboutSection === 'users'}">
+                                    Intended users
+                            </a></li>
+                            <li><a
+                                href="#"
+                                @click.prevent="navigateTo('impact')"
+                                :class="{active: aboutSection === 'impact'}">
+                                    Vision and Impact
+                            </a></li>
+                        </ul>
+                    </div>
                 </div>
                 <!-- About content -->
                 <div class="about-content">
@@ -408,6 +419,7 @@
                 currentPage: "home",
                 aboutSection: "overview",
                 how: "steps",
+                isLocalMenuOpen: false,
                 articleUrl: "",
                 analysisResult: null,
                 isAnalyzing: false,
@@ -424,6 +436,8 @@
                     if (page === 'about') this.aboutSection = 'overview';
                     // Reset if going to the how to use page
                     if (page === 'how') this.how = 'steps';
+                    // Ensures the menu is closed whenever you change pages
+                    this.isLocalMenuOpen = false;
                     // Reset scroll to the top
                     window.scrollTo(0, 0);
                 },
@@ -431,6 +445,8 @@
                 navigateTo(section) {
                     this.aboutSection = section;
                     this.how = section;
+                    // Closes menu after clicking a menu item
+                    this.isLocalMenuOpen = false;
                     // Scroll to the top of the window
                     this.scrollToTop();
                 },

@@ -22,7 +22,6 @@ header h1 {
 }
 
 .tagline {
-    font-family: "DM Serif Text", serif;
     color: #dcdee1;
     text-align: center;
     font-size: 35px;
@@ -30,13 +29,11 @@ header h1 {
 }
 
 h2 {
-    font-family: "DM Serif Text", serif;
     text-align: center;
     font-size: 30px;
 }
 
 p {
-    font-family: "DM Serif Text", serif;
     font-size: 20px;
     text-align: center;
     padding-left: 30px;
@@ -108,7 +105,10 @@ p {
 
 .howTo2-image,
 .howTo3-image,
-.howTo4-image {
+.howTo4-image,
+.gaugeLow-image,
+.gaugeMid-image,
+.gaugeHigh-image {
     height: 150px;
     display: block;
     margin-left: auto;
@@ -149,18 +149,6 @@ p {
     font-weight: normal;
 }
 
-.gaugeLow-image,
-.gaugeMid-image,
-.gaugeHigh-image {
-    height: 150px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    max-width: 100%;
-}
-
 .verdict-table {
     width: 100%;
     border-collapse: collapse;
@@ -189,14 +177,13 @@ p {
     display: flex;
     gap: 60px;
     max-width: 1100px;
-    margin: 60px auto;
+    margin: 20px auto;
     padding: 0 20px;
 }
 
 .about-content,
 .how-content {
     flex: 3;
-    font-family: "DM Serif Text", serif;
     color: #dcdee1;
 }
 
@@ -500,7 +487,9 @@ p {
 }
 
 .sentence-box.risk-low:hover { background-color: #7be49526; }
+
 .sentence-box.risk-med:hover { background-color: #ffb75e26; }
+
 .sentence-box.risk-high:hover { background-color: #ff4b2b26; }
 
 /* Tooltip */
@@ -524,7 +513,9 @@ p {
 }
 
 .risk-low .tooltip-data { border-left: 4px solid #7be495; }
+
 .risk-med .tooltip-data { border-left: 4px solid #ffb75e; }
+
 .risk-high .tooltip-data { border-left: 4px solid #ff4b2b; }
 
 /* Calculation tooltip */
@@ -601,4 +592,161 @@ p {
 
 .back-to-top:hover {
     background-color: #13233b;
+}
+
+/* Touch screen accessibility */
+@media (max-width: 768px) {
+    /* General styling */
+    body { padding-top: 70px; }
+    
+    header h1 { font-size: 45px; }
+
+    .tagline { font-size: 20px; }
+    
+    h2 { font-size: 30px; }
+    
+    p {
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 16px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Navigation bar */
+    .navbar { padding: 10px 15px; }
+
+    .nav-logo img { height: 35px; }
+    
+    .navbar ul { gap: 10px; }
+    
+    .navbar a { font-size: 16px; }
+    
+    /* Analyse page */
+    .article-submission {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .article-submission input {
+        width: 90%;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .analysis-grid {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+    }
+    
+    .tooltip-data {
+        margin-top: 7px;
+        white-space: normal;
+        word-break: break-word;
+        max-width: 100%;
+        width: 90%;
+    }
+
+    /* Images */
+    .how-image,
+    .ethics-image,
+    .users-image,
+    .why-image,
+    .howTo2-image,
+    .howTo3-image,
+    .howTo4-image,
+    .gaugeMid-image,
+    .gaugeHigh-image {
+        height: auto;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .about-image,
+    .impact-image {
+        height: 250px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        max-width: 100%;
+    }
+
+    .gaugeLow-image {
+        height: 140px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        max-width: 100%;
+    }
+    
+    .verdict-table th,
+    .verdict-table td {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    /* Menu items */
+    .how-content h2,
+    .about-content h2 {
+        margin-top: 0px;
+        padding-top: 0;
+    }
+
+    .how-menu,
+    .about-menu {
+        top: 70px;
+        z-index: 10;
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        margin-bottom: 0;
+    }
+
+    .about-layout,
+    .how-layout {
+        flex-direction: column;
+    }
+
+    .menu-content { display: none; }
+    
+    .menu-content h3 { margin-top: 5px; }
+
+    .menu-content ul { list-style: none; }
+
+    .menu-toggle {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        background: #13233b;
+        color: #ffffff;
+        border: none;
+        font-family: 'DM Serif Text', serif;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+        
+    }
+
+    .menu-content.show {
+        display: block;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 150px;
+        background-color: #36757b;
+        padding: 15px;
+        box-shadow: 0 4px 10px #000000;
+        z-index: 20;
+    }
+}
+
+/* Menu on desktop */
+@media (min-width: 769px) {
+    .menu-toggle { display: none; }
+
+    .menu-content { display: block; }
 }
