@@ -641,10 +641,25 @@ p {
     
     /* Tooltip */
     .info-tooltip {
-        position: absolute;
-        right: -70px;
-        left: auto;
-        width: 260px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90vw; 
+        max-width: 320px;
+        background-color: #36757b;
+        color: #dcdee1;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0px 10px 30px #000000;
+        z-index: 20;
+        text-align: left;
+        display: none;
+    }
+
+    .info-icon:active .info-tooltip,
+    .info-icon:focus .info-tooltip {
+        display: block;
     }
 
     .tooltip-data {
