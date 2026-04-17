@@ -639,12 +639,22 @@ p {
         padding: 0 10px;
     }
     
+    /* Tooltip */
+    .info-tooltip {
+        position: absolute;
+        right: -70px;
+        left: auto;
+        width: 260px;
+    }
+
     .tooltip-data {
         margin-top: 7px;
+        padding: 8px 12px;
+        display: inline-block;
+        width: auto;
+        max-width: 80%;
         white-space: normal;
-        word-break: break-word;
-        max-width: 100%;
-        width: 90%;
+        word-break: normal;
     }
 
     /* Images */
